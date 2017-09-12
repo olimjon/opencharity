@@ -1,0 +1,208 @@
+<?php
+	/**
+	 * @file
+	 * Opencharity specific tasks
+	 */
+
+
+	/**
+   * Use Admin theme for Panels edit pages
+   * @return array
+   */
+  function myopencharity_admin_paths() {
+    $paths = array(
+      'node/*/panel_layout' => TRUE,
+      'node/*/panel_content' => TRUE,
+    );
+    return $paths;
+  }
+
+
+  /**Add new view modes to render them differently
+   * @param $entity_info
+   */
+
+  function myopencharity_entity_info_alter(&$entity_info) {
+    $entity_info['node']['view modes']['full_page'] = array(
+      'label' => t('News events full'),
+      'custom settings' => TRUE,
+    );
+    $entity_info['node']['view modes']['small_view'] = array(
+      'label' => t('News events small'),
+      'custom settings' => TRUE,
+    );
+  }
+
+  /**
+   * Attach theming functions for nodes when they rendered with custom view mode
+   *
+   * @param $node
+   * @param $view_mode
+   */
+  function myopencharity_node_view($node, $view_mode) {
+    if (($view_mode == 'full_page' || $view_mode == 'full') && $node->type == 'news_events') {
+      // add some additional variables for template
+      $node->content['#theme'] = 'news_events_full';
+    }
+    if ($view_mode == 'small_view'  && $node->type == 'news_events') {
+      $node->content['#theme'] = 'news_events_small';
+    }
+    if (($view_mode == 'full_page' || $view_mode == 'full') && $node->type == 'project') {
+      // add some additional variables for template
+      $node->content['#theme'] = 'project_full';
+    }
+    if ($view_mode == 'small_view' && $node->type == 'project') {
+      $node->content['#theme'] = 'project_small';
+    }
+
+  }
+
+  /**
+   *
+   * Implements hook_theme
+   * @return array
+   */
+
+  function myopencharity_theme(){
+    return array(
+	    //Block templates
+	  'main_slider'=>array(
+		  'render element' => 'form',
+		  'template'=>'templates/main_slider'
+	  ),
+	    'event_box'=>array(
+		    'render element' => 'form',
+		    'template'=>'templates/event_box'
+	    ),
+	    'mission' =>array(
+		    'render element' => 'form',
+		    'template'=>'templates/mission'
+	    )
+
+    );
+  }
+
+/**
+ * Implements hook_block_info().
+ *
+ * This hook declares what blocks are provided by the module.
+ */
+function myopencharity_block_info() {
+	// This hook returns an array, each component of which is an array of block
+	// information. The array keys are the 'delta' values used in other block
+	// hooks.
+	//
+	// The required block information is a block description, which is shown
+	// to the site administrator in the list of possible blocks. You can also
+	// provide initial settings for block weight, status, etc.
+	//
+	// Many options are defined in hook_block_info():
+	$blocks['myopencharity_main_slider'] = array(
+		// info: The name of the block.
+		'info' => t('Open Charity: Main box with image'),
+		// Block caching options (per role, per user, etc.)
+		// DRUPAL_CACHE_PER_ROLE is the default.
+		'cache' => DRUPAL_CACHE_GLOBAL,
+	);
+
+	$blocks['myopencharity_event_box'] = array(
+		// info: The name of the block.
+		'info' => t('Open Charity: EventBox'),
+		// Block caching options (per role, per user, etc.)
+		// DRUPAL_CACHE_PER_ROLE is the default.
+		'cache' => DRUPAL_CACHE_GLOBAL,
+	);
+
+	$blocks['myopencharity_mission'] = array(
+		// info: The name of the block.
+		'info' => t('Open Charity: Mission'),
+		// Block caching options (per role, per user, etc.)
+		// DRUPAL_CACHE_PER_ROLE is the default.
+		'cache' => DRUPAL_CACHE_GLOBAL,
+	);
+
+
+	return $blocks;
+}
+
+/**
+ * Implements hook_block_configure().
+ *
+ * This hook declares configuration options for blocks provided by this module.
+ */
+function myopencharity_block_configure($delta = '') {
+	$form = array();
+	if ($delta == 'myopencharity_main_slider') {
+		$form['myopencharity_string'] = array(
+			'#type' => 'textfield',
+			'#title' => t('Block contents'),
+			'#size' => 60,
+			'#description' => t('This text will appear in the example block.'),
+			'#default_value' => variable_get('myopencharity_string', t('Some example content.')),
+		);
+	}
+	if ($delta == 'myopencharity_event_box') {
+		$form['myopencharity_string'] = array(
+			'#type' => 'textfield',
+			'#title' => t('Block contents'),
+			'#size' => 60,
+			'#description' => t('This text will appear in the example block.'),
+			'#default_value' => variable_get('myopencharity_string', t('Some example content.')),
+		);
+	}
+	if ($delta == 'myopencharity_mission') {
+		$form['myopencharity_string'] = array(
+			'#type' => 'textfield',
+			'#title' => t('Block contents'),
+			'#size' => 60,
+			'#description' => t('This text will appear in the example block.'),
+			'#default_value' => variable_get('myopencharity_string', t('Some example content.')),
+		);
+	}
+
+	return $form;
+}
+
+/**
+ * Implements hook_block_save().
+ *
+ * This hook declares how the configured options for a block
+ * provided by this module are saved.
+ */
+function myopencharity_block_save($delta = '', $edit = array()) {
+	// We need to save settings from the configuration form.
+	// We need to check $delta to make sure we are saving the right block.
+	if ($delta == 'example_configurable_text') {
+		// Have Drupal save the string to the database.
+		variable_set('myopencharity_string', $edit['myopencharity_string']);
+	}
+}
+
+/**
+ * Implements hook_block_view().
+ *
+ * This hook generates the contents of the blocks themselves.
+ */
+function myopencharity_block_view($delta = '') {
+	// The $delta parameter tells us which block is being requested.
+	switch ($delta) {
+		case 'myopencharity_main_slider':
+			$block['subject'] = t('Main Slider box');
+			$variables = array('test');
+			$block['content'] = theme('main_slider',$variables);
+			break;
+
+		case 'myopencharity_event_box':
+			$block['subject'] = t('Event box');
+			$variables = array('test');
+			$block['content'] = theme('event_box',$variables);
+			break;
+
+		case 'myopencharity_mission':
+			$block['subject'] = t("Mission");
+			$variables = array('test');
+			$block['content'] = theme('mission',$variables);
+			break;
+	}
+	return $block;
+}

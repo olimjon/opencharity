@@ -1,0 +1,4 @@
+name = Opencharity.com website content modifications module
+core = 7.x
+package = Opencharity Custom
+version = 7.x-1.0
