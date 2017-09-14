@@ -17,46 +17,6 @@
     return $paths;
   }
 
-
-  /**Add new view modes to render them differently
-   * @param $entity_info
-   */
-
-  function myopencharity_entity_info_alter(&$entity_info) {
-    $entity_info['node']['view modes']['full_page'] = array(
-      'label' => t('News events full'),
-      'custom settings' => TRUE,
-    );
-    $entity_info['node']['view modes']['small_view'] = array(
-      'label' => t('News events small'),
-      'custom settings' => TRUE,
-    );
-  }
-
-  /**
-   * Attach theming functions for nodes when they rendered with custom view mode
-   *
-   * @param $node
-   * @param $view_mode
-   */
-  function myopencharity_node_view($node, $view_mode) {
-    if (($view_mode == 'full_page' || $view_mode == 'full') && $node->type == 'news_events') {
-      // add some additional variables for template
-      $node->content['#theme'] = 'news_events_full';
-    }
-    if ($view_mode == 'small_view'  && $node->type == 'news_events') {
-      $node->content['#theme'] = 'news_events_small';
-    }
-    if (($view_mode == 'full_page' || $view_mode == 'full') && $node->type == 'project') {
-      // add some additional variables for template
-      $node->content['#theme'] = 'project_full';
-    }
-    if ($view_mode == 'small_view' && $node->type == 'project') {
-      $node->content['#theme'] = 'project_small';
-    }
-
-  }
-
   /**
    *
    * Implements hook_theme
@@ -120,6 +80,8 @@ function myopencharity_block_info() {
 		// DRUPAL_CACHE_PER_ROLE is the default.
 		'cache' => DRUPAL_CACHE_GLOBAL,
 	);
+
+
 
 
 	return $blocks;
@@ -199,7 +161,7 @@ function myopencharity_block_view($delta = '') {
 			break;
 
 		case 'myopencharity_mission':
-			$block['subject'] = t("Mission");
+			$block['subject'] = t("Our Mission");
 			$variables = array('test');
 			$block['content'] = theme('mission',$variables);
 			break;

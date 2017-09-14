@@ -1,22 +1,29 @@
 <div class="mission">
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem blanditiis dolorem doloribus ea eum exercitationem incidunt ipsum, laudantium maiores maxime, minus molestiae nisi omnis perspiciatis praesentium sequi vero voluptas?</p>
-	<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ad adipisci alias commodi eligendi fuga, itaque? Aliquam corporis culpa dolorum excepturi facere in nostrum porro quae quos tempora. Hic, quae.</p>
+	<p>Charities and Partners collaborating and sharing open solutions and ideas to create value in the digital space. </p>
+	<p class="lead">If you are a charity or a supplier, we are ready to welcome you.</p>
 	<div class="mission--elems">
 		<ul>
 			<li>
-				<i class="icons bulb"></i>
-				<div class="mission--title">We help charities</div>
-				<p class="mission--description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque est in non odit sit ullam. A culpa deserunt iusto quidem. Distinctio, soluta, voluptates! Amet cum dicta excepturi id, sit voluptatum! </p>
+				<div class="mission--wrapper">
+					<div class="icons"><i class="bulb"></i></div>
+					<div class="mission--title">We help charities</div>
+					<p class="mission--description">share knowledge and working practice to make the best technology choices.</p>
+				</div>
+
 			</li>
 			<li>
-				<i class="icons community"></i>
-				<div class="mission--title">We help charities</div>
-				<p class="mission--description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque est in non odit sit ullam. A culpa deserunt iusto quidem. Distinctio, soluta, voluptates! Amet cum dicta excepturi id, sit voluptatum! </p>
+				<div class="mission--wrapper">
+					<div class="icons"><i class="community"></i></div>
+					<div class="mission--title">We bring together</div>
+					<p class="mission--description">charities and suppliers to the charity sector to share best practices.</p>
+				</div>
 			</li>
 			<li>
-				<i class="icons ok"></i>
-				<div class="mission--title">We help charities</div>
-				<p class="mission--description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque est in non odit sit ullam. A culpa deserunt iusto quidem. Distinctio, soluta, voluptates! Amet cum dicta excepturi id, sit voluptatum! </p>
+				<div class="mission--wrapper">
+					<div class="icons"><i class="ok"></i></div>
+					<div class="mission--title">We encourage</div>
+					<p class="mission--description">collaboration and innovation for the good of the charity sector.</p>
+				</div>
 			</li>
 		</ul>
 	</div>
